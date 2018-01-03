@@ -1,0 +1,140 @@
+<!-- 
+BINGO kortelių generatorius ir žaidimas.
+Sugeneruoja nepasikartojančius skaičius kiekviename langelyje.
+
+Pirmas stulpelis 1 - 15;
+Antras stulpelis 16 - 30;
+Trečias stulpelis 31 - 45;
+Ketvirtas stulpelis 46 - 60;
+Penktas stulpelis 61 - 75;
+
+Vidurinis lentelės langelis iškarto turi būti užimtas.
+
+Galimybė nusistatyti, kiek skaičių bus išridenta.
+Paspaudus 'START', pradedami ridenti skaičiai, kas 5 sek. naujas skaičius.
+Atsiranda mygtukas 'B!NGO'.
+Žymime išridentus skaičius.
+
+KKOMBINACIJOS:
+  Stulpeliai:
+    d0 d1 d2 d3 d4;
+    d5 d6 d7 d8 d9;
+    d10 d11 d12 d13 d14;
+    d15 d16 d17 d18 d19;
+    d20 d21 d22 d23 d24;
+
+  Eilutės:
+    d0 d5 d10 d15 d20;
+    d1 d6 d11 d16 d21;
+    d2 d7 d12 d17 d22;
+    d3 d8 d12 d18 d23;
+    d4 d9 d13 d19 d24;
+
+  Įstrižainės:
+    d0 d6 d12 d18 d24;
+    d4 d8 d12 d16 d20;
+
+
+Surinkus vieną iš kombinacijų, spaudžiame 'B!NGO'.
+
+Tuomet PROGRAMA TIKRINA:
+Išridentus skaičius;
+Pažymėtus skaičius;
+Ar išridenti ir pažymėti skaičiai sutampa;
+Ar sutampantys skaičiai sudaro kokią nors kombinaciją.
+
+Jei sudaro, tai pranešama, kad buvo laimėta.
+Jei nesudaro, tai neleidžiama žymėti skaičių 10 sekundžių.
+
+Pasibaigus visiems ridenamiems skaičiams, baigiamas žaidimas.
+
+Tikrinama ar yra sudarytos kombinacijos,
+nežiūrint į tai ar yra pažymėtas skaičius.
+
+Jei buvo išridentas skaičius, bet nepažymėtas,
+jis pažymimas kita spalva.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>B!NGO - Online BINGO Card Generator</title>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="https://fonts.googleapis.com/css?family=Fjalla+One" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">  
+	<link rel="stylesheet" type="text/css" href="main.css">
+</head>
+<body>
+  <div id="info">
+    <h1>B!NGO</h1>
+    <p><span>Rules of BINGO:</span><br>
+    You have to stamp the cells which has numbers same as numbers that appear
+	on the right side. When you stamp a column, a row or diagonally press
+	BINGO!</p>
+	<input type="button" name="numbers" value="GENERATE" id="generate"
+		   onclick="initialize(); reset()">
+    <input type="button" name="play" value="START" id="start" onclick="startGame()">
+    <input type="button" name="print" value="PRINT"
+    	   onclick="printCard()">
+    <p id="test"></p>
+  </div>
+  
+  <div id="bingoCard">
+    <table id="printCard">
+      <tr>
+    	<th id="b">B</th>
+    	<th id="i">I</th>
+    	<th id="n">N</th>
+    	<th id="g">G</th>
+    	<th id="o">O</th>		
+      </tr>
+      <tr>
+      	<td id="d0" class="lowest" onclick="changeColor(this);"></td>
+      	<td id="d5" class="low" onclick="changeColor(this)"></td>
+      	<td id="d10" class="mid" onclick="changeColor(this)"></td>
+      	<td id="d14" class="high" onclick="changeColor(this)"></td>
+      	<td id="d19" class="highest" onclick="changeColor(this)"></td>
+      </tr>
+      <tr>
+      	<td id="d1" class="lowest" onclick="changeColor(this)"></td>
+      	<td id="d6" class="low" onclick="changeColor(this)"></td>
+      	<td id="d11" class="mid" onclick="changeColor(this)"></td>
+      	<td id="d15" class="high" onclick="changeColor(this)"></td>
+      	<td id="d20" class="highest" onclick="changeColor(this)"></td>
+      </tr>
+      <tr>
+      	<td id="d2" class="lowest" onclick="changeColor(this)"></td>
+      	<td id="d7" class="low" onclick="changeColor(this)"></td>
+      	<td class="mid disabled" onclick="changeColor(this)"></td>
+      	<td id="d16" class="high" onclick="changeColor(this)"></td>
+      	<td id="d21" class="highest" onclick="changeColor(this)"></td>
+      </tr>
+      <tr>
+      	<td id="d3" class="lowest" onclick="changeColor(this)"></td>
+      	<td id="d8" class="low" onclick="changeColor(this)"></td>
+      	<td id="d12" class="mid" onclick="changeColor(this)"></td>
+      	<td id="d17" class="high" onclick="changeColor(this)"></td>
+      	<td id="d22" class="highest" onclick="changeColor(this)"></td>
+      </tr>
+      <tr>
+      	<td id="d4" class="lowest" onclick="changeColor(this)"></td>
+      	<td id="d9" class="low" onclick="changeColor(this)"></td>
+      	<td id="d13" class="mid" onclick="changeColor(this)"></td>
+      	<td id="d18" class="high" onclick="changeColor(this)"></td>
+      	<td id="d23" class="highest" onclick="changeColor(this)"></td>
+      </tr>
+    </table>
+  </div>
+
+  <div id="gamePlay">
+  	<h1 id="countDown"></h1>
+  </div>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

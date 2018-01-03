@@ -1,0 +1,119 @@
+html,
+body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+	background-color: #ee9ca7;
+	overflow: hidden;
+	font-family: 'Fjalla One', sans-serif;
+}
+
+div#info {
+	float: left;
+	width: 30%;
+	margin: 4.5vh auto;
+}
+
+p {
+	font-family: 'PT Sans', sans-serif;
+	margin-left: 5vw;
+	margin-right: 2.5vw;
+	line-height: 1.5;
+	font-size: 1vw;
+	text-align: justify;
+	justify-content: inter-word;
+}
+
+p span{
+	font-size: 1.5vw;
+	font-weight: 600;
+}
+
+h1 {
+	font-size: 7.5vw;
+	text-align: center;
+	margin: 0;
+}
+
+input {
+	background-color: transparent;
+	border: 3px solid #1565c0;
+	border-radius: 5px;
+	font-size: 2vh;
+	width: 65%;
+	height: 5vh;
+	font-family: 'Fjalla One', sans-serif;
+	text-align: center;
+	margin-left: 5vw;
+	margin-bottom: 1vh;
+	position: relative;
+}
+
+input:hover {
+	background-color: #1e88e5;
+}
+
+div#bingoCard {
+	box-sizing: border-box;
+	margin-top: 3vw;
+	width: 40%;
+	float: left;
+}
+
+div#bingoCard table{
+	position: absolute;
+	margin: 0 auto;
+}
+
+div#bingoCard table td {
+	text-align: center;
+	width: 7.5vw;
+	height: 15vh;
+	background-color: #076585;
+	color: #fafafa;
+	font-size: 24px;
+	border-radius: 5px;
+}
+
+th {
+	font-size: 5vh;
+	background-color: #fafafa;
+	border-radius: 5px;
+}
+
+th#b {
+	color: red;
+}
+
+th#i {
+	color: blue;
+}
+
+th#n {
+	color: yellow;
+}
+
+th#g {
+	color: green;
+}
+
+th#o {
+	color: orange;
+}
+
+div#gameplay {
+	width: 30%;
+	float: right;
+}
+
+#countDown {
+	font-family: 'PT Sans', sans-serif;
+	margin: 0 auto;
+}
+
+.disabled {
+	background: #2196f3 !important;
+	border: 5px solid #1565c0;
+	box-sizing: border-box;
+}
